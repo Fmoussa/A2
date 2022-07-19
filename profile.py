@@ -12,7 +12,7 @@ for i in range(2):
   if i == 0:
   node = request.XenVM("webserver")
   node.routable_control_ip = "true"
-  else
+  else:
   node = request.XenVM("observer") 
 node.disk_image = "urn:publicid:IDN+emulab.net+image+emulab-ops:UBUNTU20-64-STD"
 iface = node.addInterface("if" + str(i))
