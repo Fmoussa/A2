@@ -4,7 +4,7 @@ import geni.rspec.pg as rspec
 # Create a Request object to start building the RSpec.
 request = portal.context.makeRequestRSpec()
 
-prefixForIP = "192.168.1"
+prefixForIP = "192.168.1."
 link = request.LAN("lan")
 
 # Create a XenVM
