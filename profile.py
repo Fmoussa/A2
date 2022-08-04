@@ -24,6 +24,8 @@ link.addInterface(iface)
 
 if i == 0:
   node.addService(rspec.Execute(shell="sh", command="sudo bash /local/repository/setup_apache.sh"))
-
+ else :
+    node.addService(rspec.Execute(shell="sh", command="sudo bash /local/repository/observer_setup.sh"))
+    
 # Print the RSpec to the enclosing page.
 portal.context.printRequestRSpec()
