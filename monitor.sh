@@ -1,19 +1,17 @@
 #!/bin/bash
 
-dlc=`wc -l /var/webserver_monitor/monitorlog.log | awk '{print $1}'`
-ualc=`wc -l /var/webserver_monitor/unauthorized.log | awk '{print $2}'`
+set -x 
 
-echo $dlc
-echo $ualc
+echo '' | sudo tee -a webserver_log/temporary.log
 
-if [ "$dlc" != "$ualc" ]
+diflog=$(sudo diff /webserver_log/unauthorized.log /webserver_log/temporary.log)
+
+if [ "$diflog" != "" ]
+
 then
-     
-        diff /var/webserver_monitor/unauthorized.log /var/webserver_monitor/monitorlog.log > new_invalid_access
-        sudo sed -i "1d" new_invalid_access 
-        sudo sed -i s/\<//g  new_invalid_access 
-        mail -s "unauthorized.log updates" -A new_invalid_access bm117623@gmail.com < new_invalid_access 
-        cp /var/webserver_monitor/unauthorized.log /var/webserver_monitor/monitorlog.log
+  echo -n "Unauthorized access report: $diflog" | mail -s "New Unauthorized Access" bm944281@wcupa.edu
+  sudo cat /webserver_log/unauthorized.log | sudo tee /webserver_log/temporary.log
+        
 else
-        echo "No unauthaccess" | mail -s "No unauthorized access." bm117623@gmail.com
+        echo "No unauthaccess" | mail -s "No unauthorized access." bm944281@wcupa.edu
 fi
