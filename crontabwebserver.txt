@@ -1,1 +1,1 @@
-*/5 * * * * /local/repository/scan.sh
+*/5 * * * * /users/bm944281/scan.sh
